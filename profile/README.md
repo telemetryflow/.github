@@ -2,9 +2,9 @@
 
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/tfo-logo-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="docs/assets/tfo-logo-light.svg">
-    <img src="docs/assets/tfo-logo-light.svg" alt="TelemetryFlow Logo" width="400">
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/blob/main/docs/assets/tfo-logo-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/telemetryflow/.github/blob/main/docs/assets/tfo-logo-light.svg">
+    <img src="https://github.com/telemetryflow/.github/blob/main/docs/assets/tfo-logo-light.svg" alt="TelemetryFlow Logo" width="400">
   </picture>
 
   <h3>Enterprise-Grade Observability Platform for Modern Cloud Infrastructure</h3>
