@@ -4,7 +4,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/tfo-logo-dark.svg">
     <source media="(prefers-color-scheme: light)" srcset="docs/assets/tfo-logo-light.svg">
-    <img src="docs/assets/tfo-logo-light.svg" alt="TelemetryFlow Logo" width="400">
+    <img src="docs/assets/tfo-logo-light.svg" alt="TelemetryFlow Logo" width="600">
   </picture>
 
   <h3>Enterprise-Grade Observability Platform for Modern Cloud Infrastructure</h3>
