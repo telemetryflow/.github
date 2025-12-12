@@ -13,11 +13,11 @@
     <strong>100% OpenTelemetry Compliant</strong> • Built with <strong>DDD/CQRS</strong> • Production-Ready
   </p>
 
-  [![Version](https://img.shields.io/badge/version-3.10.0-blue.svg)](../CHANGELOG.md)
+  [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](../CHANGELOG.md)
   [![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](../LICENSE)
-  [![NestJS](https://img.shields.io/badge/NestJS-10.x-E0234E?logo=nestjs)](https://nestjs.com/)
-  [![Vue](https://img.shields.io/badge/Vue-3.x-4FC08D?logo=vue.js)](https://vuejs.org/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+  [![NestJS](https://img.shields.io/badge/NestJS-11.x-E0234E?logo=nestjs)](https://nestjs.com/)
+  [![Vue](https://img.shields.io/badge/Vue-3.5.24-4FC08D?logo=vue.js)](https://vuejs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript)](https://www.typescriptlang.org/)
   [![ClickHouse](https://img.shields.io/badge/ClickHouse-23+-FFCC00?logo=clickhouse)](https://clickhouse.com/)
   [![OpenTelemetry](https://img.shields.io/badge/OTLP-100%25%20Compliant-success?logo=opentelemetry)](https://opentelemetry.io/)
   [![DDD](https://img.shields.io/badge/Architecture-DDD%2FCQRS-blueviolet)](docs-ddd-backend/)
@@ -40,10 +40,11 @@
 - **Seamless Integration** - Works with existing OTEL instrumentation
 
 #### 🏛️ Enterprise Architecture
-- **Domain-Driven Design** - 27 bounded contexts with clear module isolation
+- **Domain-Driven Design** - 15+ business modules + 10+ shared modules with clear boundaries
 - **CQRS Implementation** - 40+ command/query handlers for optimal performance
-- **Event-Driven** - Comprehensive audit trails and event sourcing
+- **Event-Driven** - NATS + BullMQ hybrid messaging for real-time events
 - **Multi-Tenancy** - Hierarchical isolation (Region → Organization → Workspace → Tenant)
+- **Modular Design** - LEGO-pattern modules for easy extension
 
 #### 🔒 Security First
 - **5-Tier RBAC System** - Granular role-based access control
@@ -65,26 +66,31 @@
 
 | Technology | Version | Purpose |
 |-----------|---------|---------|
-| **NestJS** | 10.x | Enterprise Node.js framework |
-| **TypeScript** | 5.7+ | Type-safe development |
+| **NestJS** | 11.1.9 | Enterprise Node.js framework |
+| **TypeScript** | 5.9.3 | Type-safe development |
 | **TypeORM** | 0.3.x | Database ORM for PostgreSQL |
 | **ClickHouse Client** | Latest | Time-series data storage |
 | **Passport JWT** | Latest | Authentication middleware |
 | **Argon2** | Latest | Password hashing |
 | **OpenTelemetry SDK** | 0.208+ | Self-instrumentation |
-| **Swagger** | Latest | API documentation |
+| **Swagger** | 11.2.3 | API documentation |
+| **BullMQ** | 5.x | Job queue processing |
+| **NATS** | 2.x | Event streaming |
 
 ### Frontend
 
 | Technology | Version | Purpose |
 |-----------|---------|---------|
-| **Vue 3** | 3.4+ | Progressive JavaScript framework |
-| **Vite** | 7.x | Lightning-fast build tool |
-| **TypeScript** | 5.7+ | Type-safe development |
-| **Naive UI** | 2.37+ | Component library |
-| **Pinia** | 2.1+ | State management |
-| **Apache ECharts** | 5.5+ | Data visualization |
-| **UnoCSS** | Latest | Atomic CSS engine |
+| **Vue 3** | 3.5.24 | Progressive JavaScript framework |
+| **Vite** | 7.2.4 | Lightning-fast build tool |
+| **TypeScript** | 5.8.3 | Type-safe development |
+| **Naive UI** | 2.43.2 | Component library |
+| **Pinia** | 3.0.4 | State management |
+| **Vue Router** | 4.6.3 | Routing library |
+| **Apache ECharts** | 6.0.0 | Data visualization |
+| **UnoCSS** | 66.5.9 | Atomic CSS engine |
+| **Axios** | 1.13.2 | HTTP client |
+| **Socket.IO** | 4.8.1 | Real-time WebSocket |
 
 ### Databases
 
@@ -96,26 +102,66 @@
 
 ---
 
+## 📚 Comprehensive Documentation
+
+**49 Technical Documentation Files** covering every aspect of the platform:
+
+### Architecture Documentation (5 files)
+- System architecture and data flow
+- Multi-tenancy implementation
+- Security architecture
+- Performance optimizations
+
+### Backend Documentation (29 files)
+- **Backend Overview** (4 files) - Tech stack, DDD/CQRS patterns, module structure
+- **Business Modules** (15 files) - Core, Auth, API Keys, Telemetry, Monitoring, Alerts, SSO, Audit, Dashboard, etc.
+- **Shared Modules** (10 files) - Cache, Email, Logger, Queue, Messaging, CORS, ClickHouse, OTEL, UI, Platform
+
+### Frontend Documentation (5 files)
+- Vue 3 architecture overview
+- Technology stack and module structure
+- State management with Pinia
+- Routing and data visualization with ECharts 6.0
+
+### Shared Resources (4 files)
+- Database schema and quick reference
+- OTLP ingestion guide with SDK examples
+- Naming conventions and coding standards
+
+### Deployment Documentation (4 files)
+- Docker Compose deployment guide
+- Kubernetes deployment
+- Environment configuration
+- Production deployment checklist
+
+**Total:** 52,000+ lines of documentation | 151+ Mermaid diagrams
+
+---
+
 ## 🗺️ Roadmap
 
 ### Current: v1.0.0-CE (Production Ready - Community Edition)
 
 ✅ **Completed Features:**
 - Full OTLP support (metrics, logs, traces, exemplars)
-- API Key authentication (Phase 3)
-- 5-Tier RBAC system
-- Multi-tenancy architecture
+- API Key authentication with AWS-style dual keys (tfk-*/tfs-*)
+- 5-Tier RBAC system with 22 permissions
+- Multi-tenancy architecture (Region → Org → Workspace → Tenant)
 - DDD/CQRS implementation (40+ handlers)
-- 27 backend modules
-- Modern Vue 3 frontend with Soybean Admin
-- Comprehensive Swagger documentation
+- 15 backend business modules + 10 shared modules
+- Modern Vue 3 frontend with Naive UI
+- Real-time WebSocket updates with Socket.IO
+- ECharts 6.0 data visualization
+- Comprehensive documentation (49 files, 52,000+ lines, 151+ diagrams)
 - Complete test infrastructure (280+ tests, 88-92% coverage)
+- Docker Compose & Kubernetes deployment guides
 
 ## 📊 Project Statistics
 
 | Metric | Count | Notes |
 |--------|-------|-------|
-| **Backend Modules** | 27 | Bounded contexts (DDD) |
+| **Backend Modules** | 15+ | Core business modules (DDD) |
+| **Backend Shared Modules** | 10+ | Reusable infrastructure modules |
 | **Frontend Modules** | 12+ | Feature modules |
 | **CQRS Handlers** | 40+ | Commands + Queries |
 | **API Endpoints** | 120+ | RESTful APIs |
@@ -124,9 +170,11 @@
 | **Lines of Code** | 110,000+ | TypeScript |
 | **Test Cases** | 280+ | Unit + E2E |
 | **Test Coverage** | 88-92% | Backend modules |
-| **Documentation Pages** | 203 | Comprehensive docs |
+| **Documentation Files** | 49 | Comprehensive technical docs |
+| **Documentation Lines** | 52,000+ | Detailed technical content |
+| **Mermaid Diagrams** | 151+ | Architecture visualizations |
 | **OpenAPI Spec** | 2,866 lines | Complete API spec |
-| **Docker Services** | 5 | PostgreSQL, ClickHouse, Redis, Backend, Frontend |
+| **Docker Services** | 15+ | PostgreSQL, ClickHouse, Redis, NATS, Backend, Frontend, Monitoring stack |
 
 ---
 
@@ -136,9 +184,9 @@
 - ✅ **100% OpenTelemetry Compliant** - Full OTLP support for metrics, logs, traces
 - ✅ **Enterprise Security** - AWS-style API keys with Argon2id hashing
 - ✅ **High Test Coverage** - 88-92% backend coverage with 280+ tests
-- ✅ **Complete Documentation** - 203 pages of comprehensive documentation
+- ✅ **Complete Documentation** - 49 comprehensive files with 52,000+ lines and 151+ diagrams
 - ✅ **OpenAPI Specification** - 2,866 lines of detailed API documentation
-- ✅ **DDD/CQRS Architecture** - 27 bounded contexts with 40+ handlers
+- ✅ **DDD/CQRS Architecture** - 15+ backend modules with 40+ CQRS handlers
 - ✅ **Multi-Tenancy** - Hierarchical isolation with automatic context injection
 
 ### 🎖️ Technical Excellence
@@ -148,12 +196,15 @@
 - **Type Safety** - 100% TypeScript across frontend and backend
 - **Performance** - ClickHouse provides 100x query performance vs traditional SQL
 - **Scalability** - Stateless authentication enables horizontal scaling
+- **Documentation** - 49 comprehensive files with 151+ Mermaid diagrams covering architecture, modules, deployment, and best practices
 
 ### 🚀 Developer Experience
 - **5-Minute Setup** - Bootstrap complete platform with `pnpm bootstrap`
-- **Hot Module Reload** - Vite 7 provides lightning-fast HMR
+- **Hot Module Reload** - Vite 7.2.4 provides lightning-fast HMR
 - **Interactive API Docs** - Swagger UI with live testing
-- **Comprehensive Examples** - Integration guides for 7+ programming languages
+- **Comprehensive Documentation** - 49 technical files covering architecture, modules, deployment
+- **Visual Documentation** - 151+ Mermaid diagrams for architecture understanding
+- **Integration Guides** - OTLP integration examples for multiple programming languages
 - **Clear Error Messages** - Detailed validation errors with fix suggestions
 
 ---
