@@ -7,7 +7,7 @@
     <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-light.svg" alt="TelemetryFlow Logo" width="80%">
   </picture>
 
-  <h3>Enterprise-Grade Observability Platform for Modern Cloud Infrastructure</h3>
+  <h3>Community Enterprise Observability Platform (CEOP)</h3>
 
   <p>
     <strong>100% OpenTelemetry Compliant</strong> • Built with <strong>DDD/CQRS</strong> • Production-Ready
