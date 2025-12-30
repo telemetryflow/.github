@@ -2,3 +2,6 @@
 *.tar.gz
 *.gz
 .DS_Store
+
+.claude
+.kiro
