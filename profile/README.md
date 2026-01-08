@@ -140,7 +140,7 @@
 
 ## 🗺️ Roadmap
 
-### Current: v1.1.1-CE (Production Ready - Community Edition)
+### Current: v1.1.2-CE (Production Ready - Community Edition)
 
 ✅ **Completed Features:**
 - Full OTLP support (metrics, logs, traces, exemplars)
@@ -357,7 +357,7 @@ Special thanks to all contributors and the open-source community!
 
 **Built with ❤️ by [DevOpsCorner Indonesia](https://github.com/devopscorner)**
 
-**Version**: 1.1.1-CE | **Status**: Production Ready | **License**: Apache 2.0
+**Version**: 1.1.2-CE | **Status**: Production Ready | **License**: Apache 2.0
 
 ---
 

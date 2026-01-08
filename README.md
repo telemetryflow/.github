@@ -523,7 +523,7 @@ sequenceDiagram
 
 ## 🗺️ Roadmap
 
-### Current: v1.1.1-CE (Production Ready - Community Edition)
+### Current: v1.1.2-CE (Production Ready - Community Edition)
 
 ✅ **Completed Features:**
 - Full OTLP support (metrics, logs, traces, exemplars)
@@ -684,8 +684,8 @@ docker-compose up -d
 
 ```bash
 # Build production images
-docker build -f deploy/docker/backend.Dockerfile -t telemetryflow/backend:1.1.1-CE .
-docker build -f deploy/docker/frontend.Dockerfile -t telemetryflow/frontend:1.1.1-CE .
+docker build -f deploy/docker/backend.Dockerfile -t telemetryflow/backend:1.1.2-CE .
+docker build -f deploy/docker/frontend.Dockerfile -t telemetryflow/frontend:1.1.2-CE .
 
 # Deploy
 docker-compose -f docker-compose.prod.yml up -d
@@ -864,7 +864,7 @@ Special thanks to all contributors and the open-source community!
 
 **Built with ❤️ by [DevOpsCorner Indonesia](https://github.com/devopscorner)**
 
-**Version**: 1.1.1-CE | **Status**: Production Ready | **License**: Apache 2.0
+**Version**: 1.1.2-CE | **Status**: Production Ready | **License**: Apache 2.0
 
 ---
 
