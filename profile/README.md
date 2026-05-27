@@ -271,7 +271,7 @@ pnpm dev
 We welcome contributions! See individual repository CONTRIBUTING.md files for guidelines.
 
 - **License**: Apache 2.0
-- **Built by**: [DevOpsCorner Indonesia](https://devopscorner.id)
+- **Built by**: [Telemetri Data Indonesia](https://telemetryflow.id)
 - **Website**: [telemetryflow.id](https://telemetryflow.id)
 - **Docs**: [docs.telemetryflow.id](https://docs.telemetryflow.id)
 
@@ -279,7 +279,7 @@ We welcome contributions! See individual repository CONTRIBUTING.md files for gu
 
 <div align="center">
 
-**Built with ❤️ by [DevOpsCorner Indonesia](https://github.com/devopscorner)**
+**Built with ❤️ by [Telemetri Data Indonesia](https://github.com/telemetryflow)**
 
 **Version**: 1.4.0 | **Status**: Production Ready | **License**: Apache 2.0
 

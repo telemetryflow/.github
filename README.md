@@ -1020,7 +1020,7 @@ TelemetryFlow/
 We welcome contributions! Please see the individual repository CONTRIBUTING.md files for guidelines.
 
 - **License**: Apache 2.0
-- **Built by**: [DevOpsCorner Indonesia](https://devopscorner.id)
+- **Built by**: [Telemetri Data Indonesia](https://telemetryflow.id)
 - **Website**: [telemetryflow.id](https://telemetryflow.id)
 
 ---
