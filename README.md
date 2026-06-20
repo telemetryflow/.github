@@ -5,7 +5,7 @@
     <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-light.svg" alt="TelemetryFlow Logo" width="80%">
   </picture>
 
-  <h1>TelemetryFlow Observability Platform</h1>
+  <h3>AI-Powered Observability & Incident Response Management (IRM) Platform</h3>
 
   <p><strong>Enterprise-Grade Observability for Modern Cloud Infrastructure</strong></p>
 
@@ -16,7 +16,7 @@
     Apache 2.0 Licensed
   </p>
 
-[![Version](https://img.shields.io/badge/version-1.4.0-orange.svg)](#)
+[![Version](https://img.shields.io/badge/version-1.4.2-orange.svg)](#)
 [![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](#)
 [![NestJS](https://img.shields.io/badge/NestJS-11.x-E0234E?logo=nestjs)](https://nestjs.com/)
 [![Vue](https://img.shields.io/badge/Vue-3.x-4FC08D?logo=vue.js)](https://vuejs.org/)
@@ -33,7 +33,7 @@
 ## Table of Contents
 
 1. [What is TelemetryFlow?](#what-is-telemetryflow)
-2. [Product Ecosystem](#product-ecosystem)
+2. [TelemetryFlow Ecosystem](#telemetryflow-ecosystem)
 3. [High-Level Architecture](#high-level-architecture)
 4. [Platform Capabilities](#platform-capabilities)
 5. [Telemetry Signals](#telemetry-signals)
@@ -47,30 +47,97 @@
 13. [Deployment](#deployment)
 14. [Quick Start](#quick-start)
 15. [Repository Map](#repository-map)
-16. [Contributing](#contributing)
+16. [Project Statistics](#project-statistics)
+17. [Contributing](#contributing)
 
 ---
 
 ## What is TelemetryFlow?
 
-**TelemetryFlow** is an **enterprise-grade, open-source observability platform** that provides unified telemetry collection, storage, analysis, and visualization. It is **100% OpenTelemetry Protocol (OTLP) compliant**, designed as an open-source alternative to commercial solutions like Datadog, New Relic, and Dynatrace.
+**TelemetryFlow** is an **enterprise-grade, open-source observability and incident response platform** that provides unified telemetry collection, storage, analysis, and visualization. It is **100% OpenTelemetry Protocol (OTLP) compliant** and built with a **Domain-Driven Design (DDD/CQRS)** architecture for production-scale deployments.
 
 ### Problem It Solves
 
-| Problem | TelemetryFlow Solution |
-|---------|----------------------|
-| **Fragmented Tooling** | Unifies metrics, logs, traces, and exemplars into a single platform |
-| **Vendor Lock-in** | 100% OTLP-compliant — works with any OpenTelemetry SDK or Collector |
-| **Multi-Tenancy Complexity** | Hierarchical isolation: Region → Organization → Workspace → Tenant |
-| **High Cost** | Self-hosted, eliminating per-GB pricing of commercial solutions |
-| **Compliance Requirements** | Built-in audit logging, GDPR compliance, regional data segregation |
-| **Monitoring Silos** | Consolidates Prometheus, kube-state-metrics, node-exporter into one agent |
+| Problem                      | TelemetryFlow Solution                                                    |
+| ---------------------------- | ------------------------------------------------------------------------- |
+| **Fragmented Tooling**       | Unifies metrics, logs, traces, and exemplars into a single platform       |
+| **Vendor Lock-in**           | 100% OTLP-compliant — works with any OpenTelemetry SDK or Collector       |
+| **Multi-Tenancy Complexity** | Hierarchical isolation: Region → Organization → Workspace → Tenant        |
+| **High Cost**                | Self-hosted with no per-GB pricing or per-seat licensing                     |
+| **Compliance Requirements**  | Built-in audit logging, GDPR compliance, regional data segregation        |
+| **Monitoring Silos**         | Consolidates Prometheus, kube-state-metrics, node-exporter into one agent |
+
+### Why Choose TelemetryFlow?
+
+**OpenTelemetry Native**
+
+- 100% OTLP Compliance — Full support for metrics, logs, traces, and exemplars
+- Zero Vendor Lock-in — Standard OpenTelemetry SDKs and collectors
+- Dual Endpoint Support — Community v1 + Platform v2 on same collector
+
+**Enterprise Architecture**
+
+- Domain-Driven Design — 25+ bounded contexts with clear module isolation
+- CQRS Implementation — Optimized read/write with 40+ command/query handlers
+- Event-Driven — NATS + BullMQ hybrid messaging for real-time events
+- Multi-Tenancy — Hierarchical isolation (Region → Organization → Workspace → Tenant)
+
+**Security First**
+
+- 5-Tier RBAC System — Granular role-based access control
+- AWS-Style API Keys — Dual-key authentication (tfk-_/tfs-_) with Argon2id hashing
+- MFA + SSO — TOTP, Google, GitHub, Azure AD, Okta, SAML, OIDC
+- Complete Audit Trail — Every action logged to ClickHouse
 
 ---
 
-## Product Ecosystem
+## TelemetryFlow Ecosystem
 
-TelemetryFlow is a modular ecosystem with 10+ specialized repositories, each purpose-built for a specific observability function:
+TelemetryFlow is a modular ecosystem of specialized repositories, each purpose-built for a specific observability function — from data collection and storage to visualization, AI integration, deployment automation, incident response, and security defense.
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-ecosystem-mindmap-dark.svg">
+    <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-ecosystem-mindmap-light.svg" alt="TelemetryFlow Ecosystem Mindmap" width="90%">
+  </picture>
+</div>
+
+```mermaid
+mindmap
+  root((TelemetryFlow<br/>Ecosystem))
+    Platform Core
+      TelemetryFlow Platform
+      TelemetryFlow Core
+      TelemetryFlow Viz
+    Collection
+      TelemetryFlow Agent
+      TelemetryFlow Collector
+    SDKs
+      Go SDK
+      Python SDK
+      Other SDK
+    AI Layer
+      Go MCP
+      Python MCP
+    Infrastructure
+      TelemetryFlow Deployment
+      TelemetryFlow Kubernetes
+      TelemetryFlow Operator
+      Ansible
+      Terraform
+    Incident & Security
+      TelemetryFlow IRM
+      TelemetryFlow CyberDefense
+    Availability
+      TelemetryFlow Uptime
+      TelemetryFlow Status Page
+    ITSM
+      TelemetryFlow ITSM
+    AI Automation
+      TelemetryFlow Hermes
+```
+
+### Ecosystem Map
 
 ```mermaid
 graph TB
@@ -94,6 +161,31 @@ graph TB
         PYMCP["Python MCP Server<br/>telemetryflow-python-mcp"]
     end
 
+    subgraph Ops["Operations & Infra"]
+        DEPLOY["Deployment<br/>telemetryflow-deployment<br/>Docker / K8s / Helm"]
+        K8S["Kubernetes<br/>telemetryflow-kubernetes<br/>Helm Charts & Manifests"]
+        OPERATOR["Operator<br/>telemetryflow-operator<br/>K8s Operator for TFO"]
+        CORE["Core<br/>telemetryflow-core<br/>Shared Libraries"]
+    end
+
+    subgraph Security["Security & Incident Response"]
+        IRM["IRM<br/>telemetryflow-irm<br/>Incident Response Management"]
+        CYBER["CyberDefense<br/>telemetryflow-cyberdefense<br/>Threat Detection"]
+    end
+
+    subgraph Avail["Availability"]
+        UPTIME["Uptime<br/>telemetryflow-uptime<br/>Synthetic Checks"]
+        STPAGE["Status Page<br/>telemetryflow-status-page<br/>Public Status"]
+    end
+
+    subgraph AIAuto["AI Automation"]
+        HERMES["Hermes<br/>telemetryflow-hermes<br/>AI Agent & Event Router"]
+    end
+
+    subgraph ITSMG["ITSM"]
+        ITSM["ITSM<br/>telemetryflow-itsm<br/>IT Service Management"]
+    end
+
     subgraph Docs["Documentation"]
         OVERVIEW["Overview Docs<br/>telemetryflow-overview"]
         PRODUCT["Product Docs<br/>telemetryflow-product"]
@@ -103,29 +195,193 @@ graph TB
     Collection -->|"OTLP v1/v2"| Platform
     Collection -->|"OTLP"| VIZ
     Platform -->|"MCP"| AI
+    Platform -->|"Deploys via"| Ops
+    Platform -->|"Manages incidents"| IRM
+    Platform <-->|"Events"| HERMES
+    Ops --> Security
+    Security --> Avail
     Docs -.->|"Reference"| Platform
 
     style SDKs fill:#e8f5e9,stroke:#2e7d32,color:#000
     style Collection fill:#e3f2fd,stroke:#1565c0,color:#000
     style Platform fill:#fff3e0,stroke:#e65100,color:#000
     style AI fill:#f3e5f5,stroke:#6a1b9a,color:#000
+    style Ops fill:#e0f7fa,stroke:#00695c,color:#000
+    style Security fill:#ffebee,stroke:#c62828,color:#000
+    style Avail fill:#e0f2f1,stroke:#0d9488,color:#000
     style Docs fill:#f5f5f5,stroke:#616161,color:#000
 ```
 
+### Product Icons
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-platform">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-platform-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-platform-light.svg" alt="TelemetryFlow Platform" width="100%">
+        </picture>
+      </a>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-viz">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-viz-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-viz-light.svg" alt="TelemetryFlow Viz" width="100%">
+        </picture>
+      </a>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-core">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-core-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-core-light.svg" alt="TelemetryFlow Core" width="100%">
+        </picture>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-agent">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-agent-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-agent-light.svg" alt="TelemetryFlow Agent" width="100%">
+        </picture>
+      </a>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-collector">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-collector-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-collector-light.svg" alt="TelemetryFlow Collector" width="100%">
+        </picture>
+      </a>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-go-sdk">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-sdk-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-sdk-light.svg" alt="TelemetryFlow SDK" width="100%">
+        </picture>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-go-mcp">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-mcp-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-mcp-light.svg" alt="TelemetryFlow MCP" width="100%">
+        </picture>
+      </a>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-uptime">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-uptime-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-uptime-light.svg" alt="TelemetryFlow Uptime" width="100%">
+        </picture>
+      </a>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-kubernetes">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-k8s-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-k8s-light.svg" alt="TelemetryFlow Kubernetes" width="100%">
+        </picture>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-deployment">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-deployment-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-deployment-light.svg" alt="TelemetryFlow Deployment" width="100%">
+        </picture>
+      </a>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-hermes">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-hermes-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-hermes-light.svg" alt="TelemetryFlow Hermes" width="100%">
+        </picture>
+      </a>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-cyberdefense">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-cyberdefense-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-cyberdefense-light.svg" alt="TelemetryFlow CyberDefense" width="100%">
+        </picture>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-irm">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-irm-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-irm-light.svg" alt="TelemetryFlow IRM" width="100%">
+        </picture>
+      </a>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-operator">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-operator-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-operator-light.svg" alt="TelemetryFlow Operator" width="100%">
+        </picture>
+      </a>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-deployment">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-deployment-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-deployment-light.svg" alt="TelemetryFlow Deployment" width="100%">
+        </picture>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <a href="https://github.com/telemetryflow/telemetryflow-itsm">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-itsm-dark.svg">
+          <img src="https://github.com/telemetryflow/.github/raw/main/docs/assets/tfo-logo-itsm-light.svg" alt="TelemetryFlow ITSM" width="100%">
+        </picture>
+      </a>
+    </td>
+    <td align="center" width="33%"></td>
+    <td align="center" width="33%"></td>
+  </tr>
+</table>
+
 ### Ecosystem Components
 
-| Repository | Language | Description |
-|-----------|----------|-------------|
-| **telemetryflow-platform** | TypeScript (NestJS + Vue 3) | Core platform — backend API, frontend dashboard, dual database |
-| **telemetryflow-agent** | Go 1.26 | Infrastructure agent — replaces Prometheus, KSM, node-exporter, FluentBit |
-| **telemetryflow-collector** | Go 1.26 | OCB-native OTLP collector with TFO custom components |
-| **telemetryflow-python-sdk** | Python 3.12+ | Python SDK for instrumenting applications |
-| **telemetryflow-go-sdk** | Go 1.24+ | Go SDK for instrumenting applications |
-| **telemetryflow-viz** | TypeScript (Vue 3) | Standalone observability visualization dashboard |
-| **telemetryflow-go-mcp** | Go | MCP server for Claude AI integration |
-| **telemetryflow-python-mcp** | Python | MCP server for Claude AI integration |
-| **telemetryflow-overview** | Markdown | Comprehensive platform documentation |
-| **telemetryflow-product** | Markdown | Product summary and features documentation |
+| Repository                        | Language                    | Description                                                                  |
+| --------------------------------- | --------------------------- | ---------------------------------------------------------------------------- |
+| **telemetryflow-platform**        | TypeScript (NestJS + Vue 3) | Core platform — backend API, frontend dashboard, dual database               |
+| **telemetryflow-agent**           | Go 1.26                     | Infrastructure agent — replaces Prometheus, KSM, node-exporter, FluentBit    |
+| **telemetryflow-collector**       | Go 1.26                     | OCB-native OTLP collector with TFO custom components                         |
+| **telemetryflow-python-sdk**      | Python 3.12+                | Python SDK for instrumenting applications                                    |
+| **telemetryflow-go-sdk**          | Go 1.26+                    | Go SDK for instrumenting applications                                        |
+| **telemetryflow-viz**             | TypeScript (Vue 3)          | Standalone observability visualization dashboard                             |
+| **telemetryflow-go-mcp**          | Go                          | Go MCP server for Claude AI integration                                      |
+| **telemetryflow-python-mcp**      | Python                      | Python MCP server for Claude AI integration                                  |
+| **telemetryflow-core**            | Go / TypeScript             | Shared libraries, types, and utilities used across the ecosystem            |
+| **telemetryflow-operator**        | Go (controller-runtime)     | Kubernetes Operator for managing TFO Platform lifecycle (CRDs, reconcile)    |
+| **telemetryflow-uptime**          | TypeScript (Vue 3)          | Synthetic checks and external endpoint availability monitoring              |
+| **telemetryflow-kubernetes**      | YAML / Helm                 | Kubernetes Helm charts and manifests for deploying the full stack            |
+| **telemetryflow-deployment**      | Docker / Terraform / Ansible| Deployment automation — Docker Compose, K8s, infrastructure-as-code          |
+| **telemetryflow-hermes**          | Go                          | Event & alert message router — fan-out telemetry events to downstream channels |
+| **telemetryflow-irm**             | TypeScript (NestJS + Vue 3) | Incident Response Management — on-call, runbooks, postmortems, escalation    |
+| **telemetryflow-itsm**            | TypeScript (NestJS + Vue 3) | IT Service Management — ticketing, change, problem, asset, service catalog   |
+| **telemetryflow-cyberdefense**    | Go / TypeScript             | Threat detection and security analytics layered on telemetry signals        |
+| **telemetryflow-overview**        | Markdown                    | Comprehensive platform documentation                                         |
+| **telemetryflow-product**         | Markdown                    | Product summary and features documentation                                   |
 
 ---
 
@@ -148,7 +404,7 @@ flowchart TB
     end
 
     subgraph Collection["Collection Layer"]
-        AGENT["TFO Agent v1.2.0<br/>Node Exporter + K8s<br/>+ cAdvisor + DB + eBPF"]
+        AGENT["TFO Agent v1.2.1<br/>Node Exporter + K8s<br/>+ cAdvisor + DB + eBPF"]
         TFOC["TFO Collector v1.2.1<br/>OCB Native<br/>v1/v2 Endpoints"]
     end
 
@@ -166,6 +422,7 @@ flowchart TB
 
     subgraph Messaging["Event Bus"]
         NATS["NATS<br/>Domain Events<br/>Cross-Module Communication"]
+        HERMES["Hermes<br/>Alert & Event Router"]
     end
 
     subgraph Presentation["Presentation Layer"]
@@ -184,6 +441,7 @@ flowchart TB
     Messaging --> BE
     BE --> FE
     BE --> MCP
+    HERMES -->|"Fan-out"| EXT
 
     style Sources fill:#e8eaf6,stroke:#283593,color:#000
     style SDKs fill:#e8f5e9,stroke:#2e7d32,color:#000
@@ -259,6 +517,17 @@ graph LR
     style Intelligence fill:#f3e5f5,stroke:#6a1b9a,color:#000
     style Reporting fill:#e0f7fa,stroke:#00695c,color:#000
 ```
+
+### Monitoring Modules (25+ Backend Modules)
+
+| Category         | Modules                                                                             |
+| ---------------- | ----------------------------------------------------------------------------------- |
+| **Core**         | Auth, IAM, Tenancy, Cache                                                           |
+| **Telemetry**    | Metrics, Logs, Traces, Exemplars, Correlations                                      |
+| **Monitoring**   | Agent, Kubernetes, VM, Uptime, Status Page, Service Map, Network Map, DB Monitoring |
+| **Platform**     | Dashboard, Alerting, Retention, Subscription, API Keys, Notification, SSO, Audit    |
+| **Intelligence** | AI Intelligence, LLM, Query (TFQL), Data Masking                                    |
+| **Reporting**    | Reporting                                                                           |
 
 ### DDD Module Layer Structure
 
@@ -347,7 +616,7 @@ sequenceDiagram
 
 ## Infrastructure Monitoring
 
-### TFO Agent v1.2.0 — One-For-All Collector
+### TFO Agent v1.2.1 — One-For-All Collector
 
 The TFO Agent is a Go-based agent that replaces multiple traditional monitoring tools:
 
@@ -362,7 +631,7 @@ graph TB
         CAD["cAdvisor"]
     end
 
-    subgraph Agent["TFO Agent v1.2.0 (Go 1.26)"]
+    subgraph Agent["TFO Agent v1.2.1 (Go 1.26)"]
         NE_MOD["Node Exporter Module<br/>CPU, Memory, DiskIO,<br/>Filesystem, Network, Load"]
         K8S_MOD["Kubernetes Module<br/>Nodes, Pods, Deployments,<br/>Services, HPA, PDB, Events"]
         CAD_MOD["cAdvisor Module<br/>Container CPU, Memory,<br/>Network, Filesystem"]
@@ -383,53 +652,44 @@ graph TB
     style Agent fill:#e8f5e9,stroke:#2e7d32,color:#000
 ```
 
+**Key Capabilities:**
+
+- 9 database collectors (MySQL, PostgreSQL, MongoDB, MSSQL, ClickHouse, CockroachDB, Aurora, TimescaleDB, SQLite3)
+- 28 eBPF kernel-level metrics across 7 categories
+- 39+ third-party integrations (Cloud, APM, OSS Observability, Streaming, Network)
+- Docker container monitoring (32 per-container metrics)
+- Disk-backed buffer for offline resilience
+- Cross-platform: Linux, macOS, Windows
+
 ### TFO Collector v1.2.1 — OCB-Native Gateway
 
-```mermaid
-flowchart LR
-    subgraph Sources["Telemetry Sources"]
-        APP["Applications<br/>OTLP SDK"]
-        AGENT["TFO Agent"]
-        EXT["External<br/>Services"]
-    end
+Enterprise-grade OTLP collector built on **OpenTelemetry Collector Builder (OCB)** with 85+ community components and 4 custom TFO components:
 
-    subgraph Collector["TFO Collector v1.2.1 (OCB)"]
-        RCV["tfootlp Receiver<br/>gRPC :4317<br/>HTTP :4318"]
-        PROC["Processors<br/>k8sattributes, batch,<br/>transform, resource"]
-        EXP_TFO["tfo Exporter<br/>TFO Platform"]
-        EXP_PROM["prometheus Exporter<br/>:8889"]
-        CONN["Connectors<br/>spanmetrics, servicegraph"]
-    end
+| Component     | Type      | Description                                            |
+| ------------- | --------- | ------------------------------------------------------ |
+| `tfootlp`     | Receiver  | OTLP receiver with v1/v2 dual endpoint support         |
+| `tfo`         | Exporter  | Platform exporter with automatic auth header injection |
+| `tfoauth`     | Extension | API key management for TFO authentication              |
+| `tfoidentity` | Extension | Collector identity and resource enrichment             |
 
-    Sources --> RCV
-    RCV --> PROC
-    PROC --> EXP_TFO
-    PROC --> EXP_PROM
-    PROC --> CONN
+**Pipeline Architecture:**
 
-    style Sources fill:#e8eaf6,stroke:#283593,color:#000
-    style Collector fill:#e3f2fd,stroke:#1565c0,color:#000
-```
-
-**Key Features:**
-- **Dual Endpoints**: Community v1 (`/v1/*`) + Platform v2 (`/v2/*`) on same port
-- **85+ OTel Components**: Built-in receivers, processors, exporters
-- **TFO Custom Components**: `tfootlp` receiver, `tfo` exporter, `tfoauth` extension, `tfoidentity` extension
-- **Connectors**: spanmetrics (exemplars support), servicegraph (service dependency maps)
-- **Security**: Alpine runtime, non-root, CVE-patched, RBAC for K8s
+- **Traces**: tfootlp → k8sattributes → batch → tfo + spanmetrics + servicegraph
+- **Metrics**: tfootlp → k8sattributes → transform → batch → tfo + prometheus
+- **Logs**: tfootlp → k8sattributes → batch → tfo
 
 ### Kubernetes Monitoring
 
 Comprehensive K8s observability with 79+ graph definitions and 8 datatables:
 
-| Category | Metrics | Graphs |
-|----------|---------|--------|
-| **Node Metrics** | CPU, Memory, Disk, Network, Load | 15+ |
-| **Pod/Container** | CPU, Memory, Restarts, Status | 20+ |
-| **Workloads** | Deployments, StatefulSets, DaemonSets | 12+ |
-| **Storage** | PV, PVC, Storage Classes | 8+ |
-| **Network** | Services, Endpoints, Ingresses | 10+ |
-| **Cluster** | API Server, CoreDNS, Events, HPA | 14+ |
+| Category          | Metrics                               | Graphs |
+| ----------------- | ------------------------------------- | ------ |
+| **Node Metrics**  | CPU, Memory, Disk, Network, Load      | 15+    |
+| **Pod/Container** | CPU, Memory, Restarts, Status         | 20+    |
+| **Workloads**     | Deployments, StatefulSets, DaemonSets | 12+    |
+| **Storage**       | PV, PVC, Storage Classes              | 8+     |
+| **Network**       | Services, Endpoints, Ingresses        | 10+    |
+| **Cluster**       | API Server, CoreDNS, Events, HPA      | 14+    |
 
 ### VM Monitoring
 
@@ -437,7 +697,7 @@ Infrastructure monitoring for virtual machines and bare-metal servers with agent
 
 ### Uptime Monitoring
 
-Synthetic checks and endpoint monitoring for external service availability tracking.
+Synthetic checks and endpoint monitoring for external service availability tracking — powered by **[TelemetryFlow Uptime](https://github.com/telemetryflow/telemetryflow-uptime)**.
 
 ### eBPF Metrics (Linux-only)
 
@@ -453,19 +713,19 @@ The eBPF collector provides 28 kernel-level metrics across 7 categories:
 
 ### 3rd Party Integrations (39+)
 
-| Category | Integrations | Count |
-|----------|-------------|-------|
-| **Cloud Providers** | GCP, Azure, Alibaba Cloud, AWS CloudWatch | 4 |
-| **Infrastructure** | Proxmox, VMware vSphere, Nutanix, Azure Arc | 4 |
-| **Network & IoT** | Cisco (DNA Center/Meraki), SNMP v1/v2c/v3, MQTT | 3 |
-| **Kernel/System** | eBPF (syscalls, network, file I/O, scheduler), Cilium Hubble | 2 |
-| **APM Platforms** | Dynatrace, IBM Instana, Datadog, New Relic | 4 |
-| **OSS Observability** | SigNoz, Coroot, HyperDX, OpenObserve, Netdata | 5 |
-| **Observability** | Prometheus, Splunk, Elasticsearch | 3 |
-| **Streaming & Logs** | Kafka, Loki, InfluxDB | 3 |
-| **Tracing** | Jaeger, Zipkin | 2 |
-| **Monitoring Tools** | Telegraf, Grafana Alloy, Percona PMM, Blackbox, ManageEngine | 5 |
-| **Custom** | Webhook | 1 |
+| Category              | Integrations                                                 | Count |
+| --------------------- | ------------------------------------------------------------ | ----- |
+| **Cloud Providers**   | GCP, Azure, Alibaba Cloud, AWS CloudWatch                    | 4     |
+| **Infrastructure**    | Proxmox, VMware vSphere, Nutanix, Azure Arc                  | 4     |
+| **Network & IoT**     | Cisco (DNA Center/Meraki), SNMP v1/v2c/v3, MQTT              | 3     |
+| **Kernel/System**     | eBPF (syscalls, network, file I/O, scheduler), Cilium Hubble | 2     |
+| **APM Platforms**     | Dynatrace, IBM Instana, Datadog, New Relic                   | 4     |
+| **OSS Observability** | SigNoz, Coroot, HyperDX, OpenObserve, Netdata                | 5     |
+| **Observability**     | Prometheus, Splunk, Elasticsearch                            | 3     |
+| **Streaming & Logs**  | Kafka, Loki, InfluxDB                                        | 3     |
+| **Tracing**           | Jaeger, Zipkin                                               | 2     |
+| **Monitoring Tools**  | Telegraf, Grafana Alloy, Percona PMM, Blackbox, ManageEngine | 5     |
+| **Custom**            | Webhook                                                      | 1     |
 
 ---
 
@@ -507,17 +767,17 @@ graph TB
 
 ### Supported Databases
 
-| Collector | Source | Metrics |
-|-----------|--------|---------|
-| **Amazon Aurora** | AWS SDK (CloudWatch, RDS, PI) | 60+ CloudWatch metrics across storage, replication, cache, latency, transactions |
-| **MySQL/MariaDB** | Direct connection | Global status, InnoDB, replication, Galera, query analytics, Percona |
-| **PostgreSQL** | Direct connection | pg_stat_activity, pg_stat_database, pg_stat_bgwriter, pg_stat_statements, replication |
-| **MSSQL** | Direct connection | Wait stats, perf counters, index usage, tempdb, agent jobs, query store |
-| **MongoDB** | Direct connection | Server status, replica set, sharding, query profiler, collection stats |
-| **ClickHouse** | HTTP API | System tables, query metrics, merge stats, replication queue |
-| **CockroachDB** | Direct connection | SQL stats, range stats, store metrics, replication |
-| **TimescaleDB** | Direct connection | Hypertable stats, chunk stats, compression ratios, continuous aggregates |
-| **SQLite3** | File access | Page cache, WAL metrics, lock contention, integrity checks |
+| Collector         | Source                        | Metrics                                                                               |
+| ----------------- | ----------------------------- | ------------------------------------------------------------------------------------- |
+| **Amazon Aurora** | AWS SDK (CloudWatch, RDS, PI) | 60+ CloudWatch metrics across storage, replication, cache, latency, transactions      |
+| **MySQL/MariaDB** | Direct connection             | Global status, InnoDB, replication, Galera, query analytics, Percona                  |
+| **PostgreSQL**    | Direct connection             | pg_stat_activity, pg_stat_database, pg_stat_bgwriter, pg_stat_statements, replication |
+| **MSSQL**         | Direct connection             | Wait stats, perf counters, index usage, tempdb, agent jobs, query store               |
+| **MongoDB**       | Direct connection             | Server status, replica set, sharding, query profiler, collection stats                |
+| **ClickHouse**    | HTTP API                      | System tables, query metrics, merge stats, replication queue                          |
+| **CockroachDB**   | Direct connection             | SQL stats, range stats, store metrics, replication                                    |
+| **TimescaleDB**   | Direct connection             | Hypertable stats, chunk stats, compression ratios, continuous aggregates              |
+| **SQLite3**       | File access                   | Page cache, WAL metrics, lock contention, integrity checks                            |
 
 ---
 
@@ -573,6 +833,7 @@ graph LR
 - **API Keys**: Argon2id-hashed keys with scope and tenant binding
 - **Audit Logging**: Immutable time-series audit trail in ClickHouse
 - **Data Masking**: PII redaction policies for sensitive telemetry data
+- **CyberDefense**: Threat detection layered on telemetry via **[TelemetryFlow CyberDefense](https://github.com/telemetryflow/telemetryflow-cyberdefense)**
 
 ### Alerting
 
@@ -581,6 +842,7 @@ graph LR
 - **Alert fatigue management**: Deduplication, grouping, silencing
 - **Severity levels**: Critical, Warning, Info
 - **Threshold types**: Static, Anomaly-based
+- **Routing**: Fan-out via **[TelemetryFlow Hermes](https://github.com/telemetryflow/telemetryflow-hermes)** event router
 
 ### Dashboards
 
@@ -688,7 +950,7 @@ graph TB
     end
 
     subgraph Agent["Agent & Collector"]
-        GOAGENT["Go 1.26<br/>TFO Agent v1.2.0"]
+        GOAGENT["Go 1.26<br/>TFO Agent v1.2.1"]
         GOCOL["Go 1.26<br/>TFO Collector v1.2.1 (OCB)"]
         OTEL_SDK["OpenTelemetry SDK<br/>SDK v1.43.0 / Core v1.58.0"]
     end
@@ -706,23 +968,23 @@ graph TB
     style Infra fill:#2496ed,stroke:#fff,color:#fff
 ```
 
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| **Frontend** | Vue 3 + TypeScript + Vite | SPA dashboard with Pinia stores |
-| **UI Framework** | Naive UI + UnoCSS | Enterprise component library + utility CSS |
-| **Visualization** | Apache ECharts 5.x | Time-series, heatmaps, flame graphs, treemaps |
-| **Backend** | NestJS 11.x | REST API with DDD/CQRS architecture |
-| **ORM** | TypeORM | PostgreSQL entity management with migrations |
-| **Relational DB** | PostgreSQL 16 | IAM, configuration, multi-tenant state |
-| **Time-Series DB** | ClickHouse 23+ | Metrics, logs, traces with materialized views |
-| **Cache** | Redis 7+ | Dual-layer cache (L1 in-memory, L2 Redis) + queues |
-| **Queue** | BullMQ on Redis DB 1 | Async processing (ingestion, events, alerts, reports) |
-| **Messaging** | NATS | Cross-module domain events |
-| **Agent** | Go 1.26 | Infrastructure collection (replaces Prometheus stack) |
-| **Collector** | Go 1.26 (OCB) | OTLP routing with TFO authentication |
-| **SDKs** | Python 3.12+ / Go 1.24+ | Application instrumentation |
-| **Containerization** | Docker + Docker Compose | Development and deployment |
-| **Orchestration** | Kubernetes + Helm | Production deployment |
+| Layer                | Technology                | Purpose                                               |
+| -------------------- | ------------------------- | ----------------------------------------------------- |
+| **Frontend**         | Vue 3 + TypeScript + Vite | SPA dashboard with Pinia stores                       |
+| **UI Framework**     | Naive UI + UnoCSS         | Enterprise component library + utility CSS            |
+| **Visualization**    | Apache ECharts 5.x        | Time-series, heatmaps, flame graphs, treemaps         |
+| **Backend**          | NestJS 11.x               | REST API with DDD/CQRS architecture                   |
+| **ORM**              | TypeORM                   | PostgreSQL entity management with migrations          |
+| **Relational DB**    | PostgreSQL 16             | IAM, configuration, multi-tenant state                |
+| **Time-Series DB**   | ClickHouse 23+            | Metrics, logs, traces with materialized views         |
+| **Cache**            | Redis 7+                  | Dual-layer cache (L1 in-memory, L2 Redis) + queues    |
+| **Queue**            | BullMQ on Redis DB 1      | Async processing (ingestion, events, alerts, reports) |
+| **Messaging**        | NATS                      | Cross-module domain events                            |
+| **Agent**            | Go 1.26                   | Infrastructure collection (replaces Prometheus stack) |
+| **Collector**        | Go 1.26 (OCB)             | OTLP routing with TFO authentication                  |
+| **SDKs**             | Python 3.12+ / Go 1.26+   | Application instrumentation                           |
+| **Containerization** | Docker + Docker Compose   | Development and deployment                            |
+| **Orchestration**    | Kubernetes + Helm         | Production deployment                                 |
 
 ---
 
@@ -789,21 +1051,21 @@ graph LR
 
 ### Queue System
 
-| Queue | Concurrency | Purpose |
-|-------|------------|---------|
-| `otlp-ingestion` | 10 | OTLP telemetry data processing |
-| `telemetry-processing` | 10 | Post-ingestion transformations |
-| `domain-events` | 5 | Cross-module event propagation |
-| `alerts` | 5 | Alert evaluation and notification |
-| `notifications` | 3 | Email, Slack, webhook delivery |
-| `reports` | 3 | Scheduled report generation |
+| Queue                  | Concurrency | Purpose                           |
+| ---------------------- | ----------- | --------------------------------- |
+| `otlp-ingestion`       | 10          | OTLP telemetry data processing    |
+| `telemetry-processing` | 10          | Post-ingestion transformations    |
+| `domain-events`        | 5           | Cross-module event propagation    |
+| `alerts`               | 5           | Alert evaluation and notification |
+| `notifications`        | 3           | Email, Slack, webhook delivery    |
+| `reports`              | 3           | Scheduled report generation       |
 
 ### Cache Strategy
 
-| Layer | TTL | Storage | Purpose |
-|-------|-----|---------|---------|
-| L1 — In-Memory | 60s | Process memory | Hot data, API responses |
-| L2 — Redis | 1800s | Redis DB 0 | Distributed cache, cross-instance |
+| Layer          | TTL   | Storage        | Purpose                           |
+| -------------- | ----- | -------------- | --------------------------------- |
+| L1 — In-Memory | 60s   | Process memory | Hot data, API responses           |
+| L2 — Redis     | 1800s | Redis DB 0     | Distributed cache, cross-instance |
 
 Key prefix: `tf:cache:` with event-driven invalidation.
 
@@ -841,6 +1103,8 @@ graph TB
     style Components fill:#fff3e0,stroke:#e65100,color:#000
 ```
 
+**459 total** registry entries across 23 module codes, rendered by Vue composables → 13 chart types via `RegistryGraphPanel` (3 variants: default/mini/panel).
+
 **23 Module Codes**: HOM, DSH, MET, TRC, LOG, COR, EXP, ALR, RPT, UPT, STP, SVM, NWM, K8S, INF, AGT, RET, SUB, IAM, TEN, AUD, APK, NOT, LLM
 
 **Chart Types**: Line, Area, Bar, Stacked Bar, Heatmap, Pie, Donut, Gauge, Treemap, Flame Graph, Table, Scatter, Text
@@ -848,6 +1112,20 @@ graph TB
 ---
 
 ## Deployment
+
+TelemetryFlow ships with multiple deployment paths. The dedicated **[TelemetryFlow Deployment](https://github.com/telemetryflow/telemetryflow-deployment)** repository bundles everything you need — Docker Compose stacks, Kubernetes manifests, Helm charts, and infrastructure-as-code templates.
+
+### TelemetryFlow Deployment Repository
+
+[**github.com/telemetryflow/telemetryflow-deployment**](https://github.com/telemetryflow/telemetryflow-deployment) provides:
+
+- **Docker Compose** — Single-command local/development stacks with profiles (`core`, `monitoring`, `all`)
+- **Kubernetes** — Production-grade manifests with persistent volumes, secrets, and ingress
+- **Helm Charts** — Parameterized charts for the Platform, Agent, and Collector
+- **Infrastructure-as-Code** — Terraform modules for managed PostgreSQL, ClickHouse, and Redis
+- **Environment Templates** — `.env.example` files for every deployment topology
+
+> For Kubernetes-native deployment, see also **[TelemetryFlow Kubernetes](https://github.com/telemetryflow/telemetryflow-kubernetes)** for the canonical Helm chart registry and operator configs.
 
 ### Docker Compose Profiles
 
@@ -877,7 +1155,7 @@ graph LR
 
     subgraph Mon["Monitoring Profile"]
         COL_SVC["TFO Collector v1.2.1<br/>:4317 / :4318"]
-        AGT_SVC["TFO Agent v1.2.0<br/>Daemon"]
+        AGT_SVC["TFO Agent v1.2.1<br/>Daemon"]
         JAEGER["Jaeger<br/>:16686"]
     end
 
@@ -897,6 +1175,56 @@ TFO Agent and Collector include Helm charts and Kubernetes manifests:
 - **Agent**: DaemonSet deployment for node-level collection
 - **Collector**: Deployment with Service for OTLP routing
 - **Platform**: Full stack deployment with persistent volumes
+
+---
+
+## TelemetryFlow Hermes
+
+**[TelemetryFlow Hermes](https://github.com/telemetryflow/telemetryflow-hermes)** is the ecosystem's event and alert message router — named after the messenger god. It fans out telemetry events, alerts, and incident notifications to downstream channels.
+
+### What Hermes Does
+
+```mermaid
+flowchart LR
+    subgraph Sources["Event Sources"]
+        PLATFORM["TFO Platform<br/>Domain Events"]
+        ALERT["Alerting Engine<br/>33 Rules"]
+        AUDIT["Audit Trail"]
+    end
+
+    subgraph Hermes["TelemetryFlow Hermes"]
+        ROUTER["Event Router<br/>Filter / Dedupe / Group"]
+        RULES["Routing Rules<br/>Severity / Tenant / Channel"]
+    end
+
+    subgraph Channels["Downstream Channels"]
+        EMAIL["Email"]
+        SLACK["Slack"]
+        PD["PagerDuty"]
+        WEBHOOK["Webhook"]
+        NATS_OUT["NATS / Message Bus"]
+    end
+
+    Sources -->|"NATS / BullMQ"| Hermes
+    Hermes --> ROUTER --> RULES
+    RULES --> EMAIL
+    RULES --> SLACK
+    RULES --> PD
+    RULES --> WEBHOOK
+    RULES --> NATS_OUT
+
+    style Sources fill:#fff3e0,stroke:#e65100,color:#000
+    style Hermes fill:#e8f5e9,stroke:#2e7d32,color:#000
+    style Channels fill:#e3f2fd,stroke:#1565c0,color:#000
+```
+
+### Key Features
+
+- **Multi-source ingestion** — Subscribes to platform domain events, alert evaluations, and audit records
+- **Fan-out routing** — One event → many channels with per-channel formatting
+- **Alert fatigue control** — Deduplication, grouping, and silencing windows before delivery
+- **Pluggable channels** — Email, Slack, PagerDuty, generic Webhook, and message-bus fan-out
+- **Tenant-aware** — Routes respect the Region → Organization → Workspace → Tenant hierarchy
 
 ---
 
@@ -931,17 +1259,18 @@ pnpm dev
 
 ### Access Points
 
-| Service | URL |
-|---------|-----|
-| Frontend Dashboard | http://localhost:8080 |
-| Backend API | http://localhost:3000/api/v2 |
-| API Documentation | http://localhost:3000/api/docs |
-| Health Check | http://localhost:3000/health |
-| ClickHouse | http://localhost:8123 |
+| Service            | URL                            |
+| ------------------ | ------------------------------ |
+| Frontend Dashboard | http://localhost:8080          |
+| Backend API        | http://localhost:3000/api/v2   |
+| API Documentation  | http://localhost:3000/api/docs |
+| Health Check       | http://localhost:3000/health   |
+| ClickHouse         | http://localhost:8123          |
 
 ### Application Instrumentation
 
 **Python:**
+
 ```bash
 pip install telemetryflow-python-sdk
 ```
@@ -957,6 +1286,7 @@ tfo.init()  # Auto-instruments Flask/FastAPI/Django
 ```
 
 **Go:**
+
 ```bash
 go get github.com/telemetryflow/telemetryflow-go-sdk
 ```
@@ -980,38 +1310,62 @@ func main() {
 
 ```
 TelemetryFlow/
-├── telemetryflow-platform/    # Core platform (NestJS + Vue 3)
-│   ├── backend/                        # NestJS API (DDD/CQRS)
-│   │   └── src/modules/               # 25+ business modules
-│   ├── frontend/                       # Vue 3 dashboard
+├── telemetryflow-platform/        # Core platform (NestJS + Vue 3)
+│   ├── backend/                            # NestJS API (DDD/CQRS)
+│   │   └── src/modules/                   # 25+ business modules
+│   ├── frontend/                           # Vue 3 dashboard
 │   │   └── src/
-│   │       ├── views/                  # 16 feature views
-│   │       ├── registry/              # Component registries (459 entries)
-│   │       ├── composables/           # Vue composables
-│   │       └── store/                 # Pinia stores
-│   └── docker-compose.yml             # Full-stack Docker setup
+│   │       ├── views/                      # 16 feature views
+│   │       ├── registry/                   # Component registries (459 entries)
+│   │       ├── composables/                # Vue composables
+│   │       └── store/                      # Pinia stores
+│   └── docker-compose.yml                  # Full-stack Docker setup
 │
-├── telemetryflow-agent/                # Infrastructure agent (Go)
-│   ├── cmd/                           # Entry points
+├── telemetryflow-agent/                    # Infrastructure agent (Go)
+│   ├── cmd/                               # Entry points
 │   ├── internal/
-│   │   ├── collector/                 # Node, K8s, cAdvisor, DB, eBPF collectors
-│   │   └── agent/                     # Agent lifecycle
-│   ├── deploy/helm/                   # Helm charts
-│   └── configs/                       # One-for-all config
+│   │   ├── collector/                      # Node, K8s, cAdvisor, DB, eBPF collectors
+│   │   └── agent/                          # Agent lifecycle
+│   ├── deploy/helm/                        # Helm charts
+│   └── configs/                            # One-for-all config
 │
-├── telemetryflow-collector/            # OTLP collector (Go, OCB)
-│   ├── components/                    # TFO custom OCB components
-│   ├── cmd/                           # Collector entry point
-│   └── configs/                       # Pipeline configs
+├── telemetryflow-collector/                # OTLP collector (Go, OCB)
+│   ├── components/                         # TFO custom OCB components
+│   ├── cmd/                               # Collector entry point
+│   └── configs/                            # Pipeline configs
 │
-├── telemetryflow-python-sdk/           # Python SDK
-├── telemetryflow-go-sdk/               # Go SDK
-├── telemetryflow-viz/                  # Standalone viz dashboard
-├── telemetryflow-go-mcp/               # Go MCP server (Claude AI)
-├── telemetryflow-python-mcp/           # Python MCP server (Claude AI)
-├── telemetryflow-overview/             # Documentation hub
-└── telemetryflow-product/              # Product summary (this repo)
+├── telemetryflow-operator/                 # K8s Operator for TFO Platform
+├── telemetryflow-core/                     # Shared libraries & types
+├── telemetryflow-uptime/                   # Synthetic checks / availability
+├── telemetryflow-kubernetes/               # Helm charts & K8s manifests
+├── telemetryflow-deployment/               # Deployment automation (Docker/K8s/IaC)
+├── telemetryflow-hermes/                   # AI agent & event message router
+├── telemetryflow-itsm/                     # IT Service Management (ticketing, change, assets)
+├── telemetryflow-cyberdefense/             # Threat detection & security analytics
+├── telemetryflow-python-sdk/               # Python SDK
+├── telemetryflow-go-sdk/                   # Go SDK
+├── telemetryflow-viz/                      # Standalone viz dashboard
+├── telemetryflow-go-mcp/                   # Go MCP server (Claude AI)
+├── telemetryflow-python-mcp/               # Python MCP server (Claude AI)
+├── telemetryflow-overview/                 # Documentation hub
+└── telemetryflow-product/                  # Product summary (this repo)
 ```
+
+---
+
+## Project Statistics
+
+| Metric                        | Count           |
+| ----------------------------- | --------------- |
+| Backend Modules               | 25+ (DDD/CQRS)  |
+| Frontend Component Registry   | 459 entries     |
+| API Endpoints                 | 120+            |
+| Database Collectors           | 9 databases     |
+| 3rd Party Integrations        | 39+             |
+| eBPF Metrics                  | 28 kernel-level |
+| ClickHouse Materialized Views | 24              |
+| Queue Workers                 | 6 (BullMQ)      |
+| Ecosystem Repositories        | 20+             |
 
 ---
 
@@ -1022,10 +1376,22 @@ We welcome contributions! Please see the individual repository CONTRIBUTING.md f
 - **License**: Apache 2.0
 - **Built by**: [Telemetri Data Indonesia](https://telemetryflow.id)
 - **Website**: [telemetryflow.id](https://telemetryflow.id)
+- **Docs**: [docs.telemetryflow.id](https://docs.telemetryflow.id)
 
 ---
 
 <div align="center">
-  <p><strong>TelemetryFlow</strong> — Unified Observability for Modern Infrastructure</p>
-  <p>100% OpenTelemetry &bull; Enterprise-Grade &bull; Open Source</p>
+
+**Built with ❤️ by [Telemetri Data Indonesia](https://github.com/telemetryflow)**
+
+**Version**: 1.4.2 | **Status**: Production Ready | **License**: Apache 2.0
+
+---
+
+⭐ **Star this repository** if you find it useful!
+
+🐛 **Report bugs** via [GitHub Issues](https://github.com/telemetryflow/telemetryflow-platform/issues)
+
+💡 **Share ideas** via [GitHub Discussions](https://github.com/telemetryflow/telemetryflow-platform/discussions)
+
 </div>
