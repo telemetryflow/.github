@@ -1310,9 +1310,9 @@ func main() {
 
 ```
 TelemetryFlow/
-├── telemetryflow-platform/        # Core platform (NestJS + Vue 3)
+├── telemetryflow-platform/                 # Core platform (NestJS + Vue 3)
 │   ├── backend/                            # NestJS API (DDD/CQRS)
-│   │   └── src/modules/                   # 25+ business modules
+│   │   └── src/modules/                    # 25+ business modules
 │   ├── frontend/                           # Vue 3 dashboard
 │   │   └── src/
 │   │       ├── views/                      # 16 feature views
@@ -1322,7 +1322,7 @@ TelemetryFlow/
 │   └── docker-compose.yml                  # Full-stack Docker setup
 │
 ├── telemetryflow-agent/                    # Infrastructure agent (Go)
-│   ├── cmd/                               # Entry points
+│   ├── cmd/                                # Entry points
 │   ├── internal/
 │   │   ├── collector/                      # Node, K8s, cAdvisor, DB, eBPF collectors
 │   │   └── agent/                          # Agent lifecycle
@@ -1331,7 +1331,7 @@ TelemetryFlow/
 │
 ├── telemetryflow-collector/                # OTLP collector (Go, OCB)
 │   ├── components/                         # TFO custom OCB components
-│   ├── cmd/                               # Collector entry point
+│   ├── cmd/                                # Collector entry point
 │   └── configs/                            # Pipeline configs
 │
 ├── telemetryflow-operator/                 # K8s Operator for TFO Platform
@@ -1374,7 +1374,7 @@ TelemetryFlow/
 We welcome contributions! Please see the individual repository CONTRIBUTING.md files for guidelines.
 
 - **License**: Apache 2.0
-- **Built by**: [Telemetri Data Indonesia](https://telemetryflow.id)
+- **Built by**: [Telemetri Data Indonesia](https://telemetridata.id)
 - **Website**: [telemetryflow.id](https://telemetryflow.id)
 - **Docs**: [docs.telemetryflow.id](https://docs.telemetryflow.id)
 
