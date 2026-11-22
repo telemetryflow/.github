@@ -16,7 +16,7 @@
     Apache 2.0 Licensed
   </p>
 
-[![Version](https://img.shields.io/badge/version-1.4.2-orange.svg)](#)
+[![Version](https://img.shields.io/badge/version-1.4.3-orange.svg)](#)
 [![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](#)
 [![NestJS](https://img.shields.io/badge/NestJS-11.x-E0234E?logo=nestjs)](https://nestjs.com/)
 [![Vue](https://img.shields.io/badge/Vue-3.x-4FC08D?logo=vue.js)](https://vuejs.org/)
@@ -404,8 +404,8 @@ flowchart TB
     end
 
     subgraph Collection["Collection Layer"]
-        AGENT["TFO Agent v1.2.1<br/>Node Exporter + K8s<br/>+ cAdvisor + DB + eBPF"]
-        TFOC["TFO Collector v1.2.1<br/>OCB Native<br/>v1/v2 Endpoints"]
+        AGENT["TFO Agent v1.3.7<br/>Node Exporter + K8s<br/>+ cAdvisor + DB + eBPF"]
+        TFOC["TFO Collector v1.4.0<br/>OCB Native<br/>v1/v2 Endpoints"]
     end
 
     subgraph Ingestion["Ingestion Layer"]
@@ -616,7 +616,7 @@ sequenceDiagram
 
 ## Infrastructure Monitoring
 
-### TFO Agent v1.2.1 — One-For-All Collector
+### TFO Agent v1.3.7 — One-For-All Collector
 
 The TFO Agent is a Go-based agent that replaces multiple traditional monitoring tools:
 
@@ -631,7 +631,7 @@ graph TB
         CAD["cAdvisor"]
     end
 
-    subgraph Agent["TFO Agent v1.2.1 (Go 1.26)"]
+    subgraph Agent["TFO Agent v1.3.7 (Go 1.26)"]
         NE_MOD["Node Exporter Module<br/>CPU, Memory, DiskIO,<br/>Filesystem, Network, Load"]
         K8S_MOD["Kubernetes Module<br/>Nodes, Pods, Deployments,<br/>Services, HPA, PDB, Events"]
         CAD_MOD["cAdvisor Module<br/>Container CPU, Memory,<br/>Network, Filesystem"]
@@ -661,7 +661,7 @@ graph TB
 - Disk-backed buffer for offline resilience
 - Cross-platform: Linux, macOS, Windows
 
-### TFO Collector v1.2.1 — OCB-Native Gateway
+### TFO Collector v1.4.0 — OCB-Native Gateway
 
 Enterprise-grade OTLP collector built on **OpenTelemetry Collector Builder (OCB)** with 85+ community components and 4 custom TFO components:
 
@@ -950,9 +950,9 @@ graph TB
     end
 
     subgraph Agent["Agent & Collector"]
-        GOAGENT["Go 1.26<br/>TFO Agent v1.2.1"]
-        GOCOL["Go 1.26<br/>TFO Collector v1.2.1 (OCB)"]
-        OTEL_SDK["OpenTelemetry SDK<br/>SDK v1.43.0 / Core v1.58.0"]
+        GOAGENT["Go 1.26<br/>TFO Agent v1.3.7"]
+        GOCOL["Go 1.26<br/>TFO Collector v1.4.0 (OCB)"]
+        OTEL_SDK["OpenTelemetry SDK<br/>SDK v1.47.0 / Core v1.71.0"]
     end
 
     subgraph Infra["Infrastructure"]
@@ -1154,8 +1154,8 @@ graph LR
     end
 
     subgraph Mon["Monitoring Profile"]
-        COL_SVC["TFO Collector v1.2.1<br/>:4317 / :4318"]
-        AGT_SVC["TFO Agent v1.2.1<br/>Daemon"]
+        COL_SVC["TFO Collector v1.4.0<br/>:4317 / :4318"]
+        AGT_SVC["TFO Agent v1.3.7<br/>Daemon"]
         JAEGER["Jaeger<br/>:16686"]
     end
 
@@ -1384,7 +1384,7 @@ We welcome contributions! Please see the individual repository CONTRIBUTING.md f
 
 **Built with ❤️ by [Telemetri Data Indonesia](https://github.com/telemetryflow)**
 
-**Version**: 1.4.2 | **Status**: Production Ready | **License**: Apache 2.0
+**Version**: 1.4.3 | **Status**: Production Ready | **License**: Apache 2.0
 
 ---
 
