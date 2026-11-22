@@ -417,7 +417,7 @@ flowchart TB
     subgraph Storage["Storage Layer"]
         PG["PostgreSQL 16<br/>IAM, Config, Entities<br/>Multi-tenant State"]
         CH["ClickHouse 23+<br/>Metrics, Logs, Traces<br/>Materialized Views<br/>TTL Rollups"]
-        RD["Redis 7+<br/>L1/L2 Cache<br/>BullMQ Queues<br/>DB 0: Cache, DB 1: Queue"]
+        RD["Valkey 9 ×2<br/>cache-valkey (L1/L2) +<br/>queue-valkey (BullMQ)<br/>Redis-compatible"]
     end
 
     subgraph Messaging["Event Bus"]
@@ -525,6 +525,7 @@ graph LR
 | **Core**         | Auth, IAM, Tenancy, Cache                                                           |
 | **Telemetry**    | Metrics, Logs, Traces, Exemplars, Correlations                                      |
 | **Monitoring**   | Agent, Kubernetes, VM, Uptime, Status Page, Service Map, Network Map, DB Monitoring |
+| **APM / Errors** | **Error Tracking (TFO-Sentry)** — Sentry-compatible ingest gateway (DSN-auth, gated off by default), JS source-map symbolication, HMAC-verified Sentry webhook with trace-id correlation; **Deployment Tracking** (groundwork) |
 | **Platform**     | Dashboard, Alerting, Retention, Subscription, API Keys, Notification, SSO, Audit    |
 | **Intelligence** | AI Intelligence, LLM, Query (TFQL), Data Masking                                    |
 | **Reporting**    | Reporting                                                                           |
@@ -618,7 +619,9 @@ sequenceDiagram
 
 ### TFO Agent v1.3.7 — One-For-All Collector
 
-The TFO Agent is a Go-based agent that replaces multiple traditional monitoring tools:
+The TFO Agent is a Go-based agent that replaces multiple traditional monitoring tools.
+
+**New in v1.3.6/1.3.7:** deployment reporting (`tfo-agent deploy`), a local RUM ingestion edge (`tfo-agent rum-proxy`), and PostgreSQL 14→18 compatibility across the DB collectors (PostgreSQL/MySQL/MSSQL/MongoDB/TimescaleDB).
 
 ```mermaid
 graph TB
@@ -663,7 +666,11 @@ graph TB
 
 ### TFO Collector v1.4.0 — OCB-Native Gateway
 
-Enterprise-grade OTLP collector built on **OpenTelemetry Collector Builder (OCB)** with 85+ community components and 4 custom TFO components:
+Enterprise-grade OTLP collector built on **OpenTelemetry Collector Builder (OCB)** with 85+ community components and 4 custom TFO components.
+
+**New in v1.4.0:** upgraded to OpenTelemetry Collector **0.165** (core 0.165.0, contrib 0.165.1, stable pdata v1.71.0) with security patches (grpc/thrift/go-jose/otel CVEs); gzip decompression in the HTTP receiver (v1/v2 logs); agent-identity header alias (`X-TelemetryFlow-Agent-ID`) for v2 auth.
+
+The 4 custom TFO components:
 
 | Component     | Type      | Description                                            |
 | ------------- | --------- | ------------------------------------------------------ |
@@ -946,7 +953,7 @@ graph TB
     subgraph Databases["Databases"]
         PG["PostgreSQL 16<br/>Relational State"]
         CLICK["ClickHouse 23+<br/>Time-Series Analytics"]
-        REDIS["Redis 7+<br/>Cache & Queue"]
+        REDIS["Valkey 9 ×2<br/>cache + queue<br/>Redis-compatible"]
     end
 
     subgraph Agent["Agent & Collector"]
@@ -977,8 +984,8 @@ graph TB
 | **ORM**              | TypeORM                   | PostgreSQL entity management with migrations          |
 | **Relational DB**    | PostgreSQL 16             | IAM, configuration, multi-tenant state                |
 | **Time-Series DB**   | ClickHouse 23+            | Metrics, logs, traces with materialized views         |
-| **Cache**            | Redis 7+                  | Dual-layer cache (L1 in-memory, L2 Redis) + queues    |
-| **Queue**            | BullMQ on Redis DB 1      | Async processing (ingestion, events, alerts, reports) |
+| **Cache**            | Valkey 9 (Redis-compatible) | Dual-layer cache (L1 in-memory, L2 `cache-valkey`); Redis optional |
+| **Queue**            | BullMQ on `queue-valkey`    | Async processing (ingestion, events, alerts, reports); noeviction |
 | **Messaging**        | NATS                      | Cross-module domain events                            |
 | **Agent**            | Go 1.26                   | Infrastructure collection (replaces Prometheus stack) |
 | **Collector**        | Go 1.26 (OCB)             | OTLP routing with TFO authentication                  |
@@ -1065,7 +1072,7 @@ graph LR
 | Layer          | TTL   | Storage        | Purpose                           |
 | -------------- | ----- | -------------- | --------------------------------- |
 | L1 — In-Memory | 60s   | Process memory | Hot data, API responses           |
-| L2 — Redis     | 1800s | Redis DB 0     | Distributed cache, cross-instance |
+| L2 — Valkey    | 1800s | `cache-valkey` | Distributed cache, cross-instance (Redis-compatible) |
 
 Key prefix: `tf:cache:` with event-driven invalidation.
 
@@ -1122,7 +1129,7 @@ TelemetryFlow ships with multiple deployment paths. The dedicated **[TelemetryFl
 - **Docker Compose** — Single-command local/development stacks with profiles (`core`, `monitoring`, `all`)
 - **Kubernetes** — Production-grade manifests with persistent volumes, secrets, and ingress
 - **Helm Charts** — Parameterized charts for the Platform, Agent, and Collector
-- **Infrastructure-as-Code** — Terraform modules for managed PostgreSQL, ClickHouse, and Redis
+- **Infrastructure-as-Code** — Terraform modules for managed PostgreSQL, ClickHouse, and Valkey
 - **Environment Templates** — `.env.example` files for every deployment topology
 
 > For Kubernetes-native deployment, see also **[TelemetryFlow Kubernetes](https://github.com/telemetryflow/telemetryflow-kubernetes)** for the canonical Helm chart registry and operator configs.
@@ -1130,7 +1137,7 @@ TelemetryFlow ships with multiple deployment paths. The dedicated **[TelemetryFl
 ### Docker Compose Profiles
 
 ```bash
-# Core services (PostgreSQL, ClickHouse, Redis, NATS, Backend, Frontend)
+# Core services (PostgreSQL, ClickHouse, Valkey ×2, NATS, Backend, Frontend)
 docker-compose --profile core up -d
 
 # Core + Monitoring (TFO Collector, TFO Agent, Jaeger)
@@ -1147,7 +1154,7 @@ graph LR
     subgraph Core["Core Profile"]
         PG_SVC["PostgreSQL 16<br/>:5432"]
         CH_SVC["ClickHouse 23+<br/>:8123 / :9000"]
-        RD_SVC["Redis 7+<br/>:6379"]
+        RD_SVC["Valkey 9<br/>:6379 / :6380"]
         NT_SVC["NATS<br/>:4222"]
         BE_SVC["Backend (NestJS)<br/>:3000"]
         FE_SVC["Frontend (Vue)<br/>:8080"]
